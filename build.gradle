@@ -26,8 +26,8 @@ ext {
 
 // 所有项目配置
 allprojects {
-	group = 'com.sch'
-	version = '1.0.0-SNAPSHOT'
+	group = 'com.pear'
+	version = '1.0.0'
 
 	java {
 		sourceCompatibility = JavaVersion.VERSION_17
