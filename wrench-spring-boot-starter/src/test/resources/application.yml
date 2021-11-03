@@ -1,0 +1,54 @@
+#mybatis-plus:
+#  global-config:
+#    db-config:
+#      id-type: INPUT
+#  configuration:
+#    cache-enabled: false
+
+# Spring 配置
+spring:
+  # 数据源
+  datasource:
+    # 数据库连接信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://49.235.242.213/wrench?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: develop
+    password: develop
+    initialization-mode: always
+
+mybatis-plus:
+    #mapper-locations: classpath:mybatis/**/*Mapper.xml
+    # 在classpath前添加星号可以使项目热加载成功
+    mapper-locations: classpath*:mybatis/**/*Mapper.xml
+    #实体扫描，多个package用逗号或者分号分隔
+    typeAliasesPackage: com.nis.project
+    global-config:
+        #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+        id-type: 3
+        #机器 ID 部分(影响雪花ID)
+        workerId: 1
+        #数据标识 ID 部分(影响雪花ID)(workerId 和 datacenterId 一起配置才能重新初始化 Sequence)
+        datacenterId: 18
+        #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+        field-strategy: 2
+        #驼峰下划线转换
+        db-column-underline: true
+        #刷新mapper 调试神器
+        refresh-mapper: true
+        #数据库大写下划线转换
+        #capital-mode: true
+        #序列接口实现类配置
+        #key-generator: com.baomidou.springboot.xxx
+        #逻辑删除配置（下面3个配置）
+        logic-delete-value: 0
+        logic-not-delete-value: 1
+        #自定义SQL注入器
+        #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+        #自定义填充策略接口实现
+        #meta-object-handler: com.baomidou.springboot.xxx
+    configuration:
+        map-underscore-to-camel-case: true
+        cache-enabled: false
+        # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

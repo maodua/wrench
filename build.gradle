@@ -1,0 +1,88 @@
+plugins {
+	id 'java-library'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.5.6'
+}
+
+description = "拧螺丝的好扳手"
+
+ext {
+    libraries = [
+        junitVersion = '5.8.1'
+    ]
+
+	lib = [
+			"mybatis-plus"				            : 	"com.baomidou:mybatis-plus-boot-starter:3.4.2",
+            "pagehelper"                            :   "com.github.pagehelper:pagehelper-spring-boot-starter:1.4.0",
+			"lombok"              					:	"org.projectlombok:lombok:1.18.22",
+            "mysql-connector-java"                  :   "mysql:mysql-connector-java",
+            // JUnit 5 Jupiter API
+            "junit-jupiter-api"                     :   "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+            // JUnit 5 的测试引擎 engine
+            "junit-jupiter-engine"                  :   "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
+
+    ]
+}
+
+// 所有项目配置
+allprojects {
+	group = 'com.sch'
+	version = '1.0.0-SNAPSHOT'
+
+	java {
+		sourceCompatibility = JavaVersion.VERSION_17
+		targetCompatibility = JavaVersion.VERSION_17
+		withJavadocJar()
+		withSourcesJar()
+	}
+
+	repositories {
+		mavenLocal()
+		maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+		maven { url "https://maven.aliyun.com/nexus/content/repositories/gradle-plugin" }
+		mavenCentral()
+	}
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    jar {
+        enabled = true
+    }
+    bootJar {
+        enabled = false
+    }
+
+    // java 编码
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.warnings = false
+        options.deprecation = true
+        options.compilerArgs += ["-parameters"]
+    }
+
+    test {
+        // 使用JUnit平台
+        useJUnitPlatform()
+    }
+
+    dependencies {
+        api                     'org.springframework.boot:spring-boot-starter'
+        annotationProcessor     "org.springframework.boot:spring-boot-configuration-processor"
+        compileOnly             "org.springframework.boot:spring-boot-configuration-processor"
+        annotationProcessor     "org.projectlombok:lombok"
+        compileOnly             "org.projectlombok:lombok"
+
+        testAnnotationProcessor "org.projectlombok:lombok"
+        testCompileOnly         "org.projectlombok:lombok"
+        testImplementation      "org.springframework.boot:spring-boot-starter-test"
+
+//        spring-boot-test 中已经包含 junit
+//        testImplementation      "${lib["junit-jupiter-api"]}"
+//        testRuntimeOnly         "${lib["junit-jupiter-engine"]}"
+    }
+
+}

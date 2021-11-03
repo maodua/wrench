@@ -1,0 +1,10 @@
+rootProject.name = 'wrench'
+
+include 'wrench-spring-boot-starter'
+include 'wrench-common-spring-boot-starter'
+include 'wrench-file-spring-boot-starter'
+include 'wrench-pager-spring-boot-starter'
+include 'wrench-tree-spring-boot-starter'
+include 'wrench-sql-spring-boot-starter'
+
+

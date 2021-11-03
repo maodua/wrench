@@ -1,0 +1,8 @@
+dependencies {
+    api                 project(":wrench-common-spring-boot-starter")
+    api                 project(":wrench-sql-spring-boot-starter")
+    api                 "${lib.'pagehelper'}"
+    api                 "org.springframework.boot:spring-boot-starter-aop"
+
+    testRuntimeOnly     "${lib.'mysql-connector-java'}"
+}
