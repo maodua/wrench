@@ -26,7 +26,7 @@ ext {
 
 // 所有项目配置
 allprojects {
-	group = 'com.github.maodua'
+	group = 'io.github.maodua'
 	version = '1.0.0'
 
 	java {

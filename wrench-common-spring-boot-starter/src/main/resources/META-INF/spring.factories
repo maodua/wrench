@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.maodua.wrench.common.util.Springs
+  io.github.maodua.wrench.common.util.Springs
