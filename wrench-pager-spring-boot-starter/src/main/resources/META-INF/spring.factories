@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.pear.wrench.pager.autoconfigure.WrenchPagerAutoConfigure
+  com.github.maodua.wrench.pager.autoconfigure.WrenchPagerAutoConfigure
