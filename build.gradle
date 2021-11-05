@@ -2,6 +2,8 @@ plugins {
 	id 'java-library'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'org.springframework.boot' version '2.5.6'
+    id 'maven-publish'
+    id 'signing'
 }
 
 description = "拧螺丝的好扳手"
@@ -41,6 +43,9 @@ allprojects {
 		maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
 		maven { url "https://maven.aliyun.com/nexus/content/repositories/gradle-plugin" }
 		mavenCentral()
+        // spring 仓库
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
 	}
 }
 
@@ -48,9 +53,13 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
 
     jar {
         enabled = true
+        // jar文件名中删除 `plain` 后缀
+        archiveClassifier.set("")
     }
     bootJar {
         enabled = false
@@ -78,11 +87,80 @@ subprojects {
 
         testAnnotationProcessor "org.projectlombok:lombok"
         testCompileOnly         "org.projectlombok:lombok"
+        // spring-boot-test 中已经包含 junit
         testImplementation      "org.springframework.boot:spring-boot-starter-test"
+    }
 
-//        spring-boot-test 中已经包含 junit
-//        testImplementation      "${lib["junit-jupiter-api"]}"
-//        testRuntimeOnly         "${lib["junit-jupiter-engine"]}"
+    // 发版
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+                pom {
+                    name = 'wrench'
+                    description = '🔧 拧螺丝的好扳手'
+                    url = 'https://github.com/maodua/wrench'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    // 开发者信息
+                    developers {
+                        developer {
+                            id = 'sch'
+                            name = 'shanchanghui'
+                            email = 'changhui.shan@qq.com'
+                        }
+                    }
+                    // SCM配置
+                    scm {
+                        connection = 'scm:git:git://github.com/maodua/wrench.git'
+                        developerConnection = 'scm:git:ssh://github.com:maodua/wrench.git'
+                        url = 'https://github.com/maodua/wrench/tree/main'
+                    }
+                }
+            }
+        }
+        // 仓库信息
+        repositories {
+            maven {
+                def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+                credentials {
+                    username ossrh_username
+                    password ossrh_password
+                }
+            }
+        }
+
+    }
+
+    // 签名
+    signing {
+        sign publishing.publications.mavenJava
+    }
+
+    javadoc {
+        // 防止本地打开中文乱码
+        options.addStringOption("charset", "UTF-8")
+        if(JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
     }
 
 }
