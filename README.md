@@ -10,10 +10,10 @@
 | wrench-tree-spring-boot-starter | 树结构 |
 
 ## 分支
-| 分支 | 兼容性 | 最新版本号 |
+| 分支 | JDK兼容性 | 最新版本号 |
 | ------  | ---- | --- |
 | main  | Latest JDK | 1.0.0 |
-| JDK8 | JDK 8+ | 1.0.0.JDK8 |
+| jdk8 | JDK 8+ | 1.0.0.JDK8 |
 
 ## 安装
 
