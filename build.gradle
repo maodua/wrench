@@ -79,7 +79,7 @@ subprojects {
     }
 
     dependencies {
-        api                     'org.springframework.boot:spring-boot-starter'
+        api                     "org.springframework.boot:spring-boot-starter"
         annotationProcessor     "org.springframework.boot:spring-boot-configuration-processor"
         compileOnly             "org.springframework.boot:spring-boot-configuration-processor"
         annotationProcessor     "org.projectlombok:lombok"
