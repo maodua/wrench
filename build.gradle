@@ -29,11 +29,11 @@ ext {
 // 所有项目配置
 allprojects {
 	group = 'io.github.maodua'
-	version = '1.0.0'
+	version = '1.0.0.JDK8'
 
 	java {
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
+		sourceCompatibility = JavaVersion.VERSION_1_8
+		targetCompatibility = JavaVersion.VERSION_1_8
 		withJavadocJar()
 		withSourcesJar()
 	}

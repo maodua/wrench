@@ -6,13 +6,11 @@ class StringsTest {
 
     @Test
     void isBlank(){
-        var s = "  ";
-        var s2 = "";
-        var s3 = """
-            """;
+        String s = "  ";
+        String s2 = "";
         System.out.println(s.isEmpty());
         System.out.println(s2.isEmpty());
-        System.out.println(s3.isEmpty());
+
 //        System.out.println(Strings.isBlank(s));
 
     }
