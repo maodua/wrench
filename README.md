@@ -2,16 +2,21 @@
 
 | 模块名称 | 描述 |
 | ------  | ---- |
-| wrench-common-spring-boot-starter | [通用包]) |
+| wrench-common-spring-boot-starter | 通用包 |
 | wrench-file-spring-boot-starter | 文件处理 |
 | wrench-pager-spring-boot-starter | 分页处理 |
 | wrench-modules-spring-boot-starter | 所有模块 |
 | wrench-sql-spring-boot-starter | 标准SQL |
 | wrench-tree-spring-boot-starter | 树结构 |
 
+## 分支
+| 分支 | 兼容性 | 最新版本号 |
+| ------  | ---- | --- |
+| main  | Latest JDK | 1.0.0 |
+| JDK8 | JDK 8+ | 1.0.0.JDK8 |
+
 ## 安装
 
----
 Gradle:
 ```groovy
 dependencies {
@@ -26,3 +31,5 @@ Maven:
     <version>版本号</version>
 </dependency>
 ```
+
+
