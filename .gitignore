@@ -23,6 +23,7 @@ hs_err_pid*
 # gradle
 .gradle
 **/build
+gradle.properties
 
 # IntelliJ project files
 .idea
