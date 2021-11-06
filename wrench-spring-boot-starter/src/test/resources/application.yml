@@ -11,9 +11,9 @@ spring:
   datasource:
     # 数据库连接信息
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://xxxx/wrench?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-    username: xxx
-    password: xxx
+    url: jdbc:mysql://127.0.0.1/wrench?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: develop
+    password: develop
     initialization-mode: always
 
 mybatis-plus:
@@ -52,3 +52,7 @@ mybatis-plus:
         # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+wrench:
+    pager:
+        page: "pageCustomize"
+        pageSize: "pageSizeCustomize"

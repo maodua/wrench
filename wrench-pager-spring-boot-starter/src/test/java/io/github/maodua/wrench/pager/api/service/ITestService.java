@@ -1,7 +1,7 @@
-package io.github.maodua.wrench.pager.service;
+package io.github.maodua.wrench.pager.api.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import io.github.maodua.wrench.pager.entity.TestTable;
+import io.github.maodua.wrench.pager.api.entity.TestTable;
 
 /**
  * <p>

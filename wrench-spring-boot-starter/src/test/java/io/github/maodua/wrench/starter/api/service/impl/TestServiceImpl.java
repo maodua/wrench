@@ -1,9 +1,9 @@
-package io.github.maodua.wrench.starter.service.impl;
+package io.github.maodua.wrench.starter.api.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.github.maodua.wrench.starter.entity.TestTable;
-import io.github.maodua.wrench.starter.mapper.TestMapper;
-import io.github.maodua.wrench.starter.service.ITestService;
+import io.github.maodua.wrench.starter.api.entity.TestTable;
+import io.github.maodua.wrench.starter.api.mapper.TestMapper;
+import io.github.maodua.wrench.starter.api.service.ITestService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

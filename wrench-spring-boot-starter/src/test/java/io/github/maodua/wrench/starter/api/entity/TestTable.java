@@ -1,4 +1,4 @@
-package io.github.maodua.wrench.starter.entity;
+package io.github.maodua.wrench.starter.api.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

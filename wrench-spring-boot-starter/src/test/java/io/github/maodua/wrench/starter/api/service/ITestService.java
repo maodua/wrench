@@ -1,7 +1,8 @@
-package io.github.maodua.wrench.starter.service;
+package io.github.maodua.wrench.starter.api.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import io.github.maodua.wrench.starter.entity.TestTable;
+import io.github.maodua.wrench.starter.api.entity.TestTable;
+
 
 /**
  * <p>
