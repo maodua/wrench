@@ -1,8 +1,9 @@
-package io.github.maodua.wrench.starter.mapper;
+package io.github.maodua.wrench.starter.api.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.github.maodua.wrench.starter.entity.TestTable;
+
+import io.github.maodua.wrench.starter.api.entity.TestTable;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
