@@ -29,7 +29,7 @@ ext {
 // 所有项目配置
 allprojects {
 	group = 'io.github.maodua'
-	version = '1.0.0.JDK8'
+	version = '1.0.1.JDK8'
 
 	java {
 		sourceCompatibility = JavaVersion.VERSION_1_8
