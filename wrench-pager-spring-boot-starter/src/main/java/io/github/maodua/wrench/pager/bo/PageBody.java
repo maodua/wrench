@@ -3,7 +3,7 @@ package io.github.maodua.wrench.pager.bo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * 分页返回值的 data 部分
@@ -11,15 +11,19 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public final class PageBody<T> {
+public class PageBody<T> {
     /**
      * 实际的数据列表
      */
-    private List<T> listData;
+    private Collection<T> records;
     /**
      * 当前是第几页
      */
     private long page;
+    /**
+     * 页大小
+     */
+    private long pageSize;
     /**
      * 总记录数
      */

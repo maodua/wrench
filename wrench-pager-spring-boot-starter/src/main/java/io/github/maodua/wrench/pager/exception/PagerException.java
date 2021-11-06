@@ -13,4 +13,7 @@ public class PagerException extends RuntimeException {
     public PagerException(Throwable cause) {
         super(cause);
     }
+
+    public PagerException(Object e) {
+    }
 }
