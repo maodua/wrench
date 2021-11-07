@@ -1,26 +1,22 @@
 # 🔧 分页可以更简单
 
-### 添加依赖
-
----
-gradle
+## 安装
+Gradle:
 ```groovy
 dependencies {
-    compile "org.xxx:wrench-pager-spring-boot-starter:版本号"
+    compile "io.github.maodua:wrench-pager-spring-boot-starter:最新版本号"
 }
 ```
-maven
+Maven:
 ```xml
 <dependency>
-    <groupId>org.xxx</groupId>
+    <groupId>io.github.maodua</groupId>
     <artifactId>wrench-pager-spring-boot-starter</artifactId>
-    <version>版本号</version>
+    <version>最新版本号</version>
 </dependency>
-
 ```
-### 示例代码
 
----
+## 示例代码
 ```java
 @RestController
 @RequestMapping("api/test")
@@ -40,35 +36,41 @@ ok现在你的接口就已经支持分页了
 
 返回值
 ```json
+GET http://ip:port/api/testlist?page=2&pageSize=12
 {
     "success": true,
     "code": 0,
     "message": "",
     "data": {
-        "listData": [
+        "records": [
             {
                 "id": "1452532627610537985",
                 "objId": "100",
                 "addTime": "2021-10-25T15:08:59"
-            },
-            {
-                "id": "1452532628701057025",
-                "objId": "101",
-                "addTime": "2021-10-25T15:09:00"
             }
         ],
-        "page": 1,
+        "page": 2,
         "totalRow": 13,
         "totalPage": 2
     }
 }
 ```
+## 灵活配置
+### 1. 自定义请求参数
+```yaml
+# application.yml中添加以下配置
+wrench:
+    pager:
+    		# 当前页参数 KEY
+        page: "pageCustomize"
+        # 页大小参数 KEY
+        pageSize: "pageSizeCustomize"
+```
+访问URL ： GET http://ip:port/xxx/xxx?pageCustomize=2&pageSizeCustomize=12
 
-### 自定义返回值
+### 2. 自定义返回对象
 
----
 ```java
-
 // 自定义结果处理器
 public class CustomizeResultHandler implements IResultHandler<WrenchResult<Object>> {
     @Override
@@ -83,7 +85,7 @@ public class CustomizeResultHandler implements IResultHandler<WrenchResult<Objec
 
 
 @Configuration
-public class PagerTestConfig {
+public class PagerConfig {
     // 注册到 spring 容器中
     @Bean
     public IResultHandler resultHandler(){
@@ -101,3 +103,30 @@ public WrenchResult<?> list(){
     return WrenchResult.success(list);
 }
 ```
+
+### 3. 自定义返回数据
+```java
+// 自定义分页数据处理器
+public class CustomizePageDataHandler extends Page<Object> implements IPageDataHandler {
+    @Override
+    public void setWrenchPage(long page) {this.setCurrent(page);}
+    @Override
+    public void setWrenchPageSize(long pageSize) {this.setSize(pageSize);}
+    @Override
+    public void setWrenchTotalRow(long totalRow) {this.setTotal(totalRow);}
+    @Override
+    public void setWrenchTotalPage(long totalPage) {this.setPages(totalPage);}
+    @Override
+    public void setWrenchData(Collection<Object> records) {this.setRecords(Collections.singletonList(records));}
+}
+
+@Configuration
+public class PagerConfig {
+    // 注册到 spring 容器中
+    @Bean
+    public IPageDataHandler customizePageDataHandler(){
+        return new CustomizePageDataHandler();
+    }
+}
+```
+
