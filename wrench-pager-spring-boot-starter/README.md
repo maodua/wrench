@@ -61,7 +61,7 @@ GET http://ip:port/api/testlist?page=2&pageSize=12
 # application.yml中添加以下配置
 wrench:
     pager:
-    		# 当前页参数 KEY
+    	# 当前页参数 KEY
         page: "pageCustomize"
         # 页大小参数 KEY
         pageSize: "pageSizeCustomize"
