@@ -32,7 +32,7 @@ public class TestController {
     }
 }
 ```
-ok现在你的接口就已经支持分页了
+在接口上添加`@Pager`注解，ok现在你的接口就已经支持分页了
 
 返回值
 ```json
