@@ -11,13 +11,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Servlets {
 
-    public static ServletRequestAttributes SERVLET_REQUEST = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-
     public static HttpServletRequest  getRequest(){
-        return SERVLET_REQUEST.getRequest();
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
 
     public static HttpServletResponse getResponse(){
-        return SERVLET_REQUEST.getResponse();
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     }
 }
