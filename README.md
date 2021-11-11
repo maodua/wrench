@@ -5,7 +5,7 @@
 | wrench-common-spring-boot-starter | 通用包 |
 | wrench-file-spring-boot-starter | 文件处理 |
 | wrench-pager-spring-boot-starter | [分页处理](/wrench-pager-spring-boot-starter/README.md) |
-| wrench-modules-spring-boot-starter | 所有模块 |
+| wrench-spring-boot-starter | 所有模块 |
 | wrench-sql-spring-boot-starter | 标准SQL |
 | wrench-tree-spring-boot-starter | [树结构](/wrench-tree-spring-boot-starter/README.md) |
 
