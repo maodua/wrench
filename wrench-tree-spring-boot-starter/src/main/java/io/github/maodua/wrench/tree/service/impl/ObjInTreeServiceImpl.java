@@ -1,6 +1,5 @@
 package io.github.maodua.wrench.tree.service.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.maodua.wrench.tree.entity.Constant;
@@ -39,7 +38,6 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
             }
 
             var objInTree = new ObjInTree()
-                .setId(IdWorker.getIdStr())
                 .setAncestorId(child)
                 .setObjId(child)
                 .setLvl(0)
@@ -75,7 +73,6 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
         var addList = new ArrayList<ObjInTree>();
         ancestor.forEach(a -> {
             var ojbInTree = new ObjInTree()
-                    .setId(IdWorker.getIdStr())
                     .setAncestorId(a.getAncestorId())
                     .setObjId(child)
                     .setLvl(a.getLvl() + 1)
@@ -88,7 +85,6 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
 
         // 添加本级关系
         var now = new ObjInTree()
-                .setId(IdWorker.getIdStr())
                 .setAncestorId(child)
                 .setObjId(child)
                 .setLvl(0)
@@ -172,7 +168,6 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
             childRelation.forEach(c -> {
 
                 var ojbInTree = new ObjInTree()
-                        .setId(IdWorker.getIdStr())
                         .setAncestorId(a.getAncestorId())
                         .setObjId(c.getObjId())
                         .setLvl(a.getLvl() + c.getLvl() + 1)

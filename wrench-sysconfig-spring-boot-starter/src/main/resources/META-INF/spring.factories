@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.github.maodua.wrench.sysconfig.autoconfig.SysConfigAutoConfigure

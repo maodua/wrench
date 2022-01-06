@@ -2,6 +2,8 @@ package io.github.maodua.wrench.tree.entity;
 
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,7 +15,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ObjInTree {
 
-
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     /**
