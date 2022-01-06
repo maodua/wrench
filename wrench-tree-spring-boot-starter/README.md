@@ -1,14 +1,25 @@
-# 树形结构工具类
+# 🔧 树存储可以更简单
 
 ## 1. 如何在关系型数据库中存储树形结构？
-* 邻接表： 添加一个 parent_id
-* 左右值编码： 存储每个节点左右值，适合`增删改`多需求
-* 闭包表：空间换时间的方式，适合`查询`多需求
+* 邻接表： 每一行添加一个 parent_id
+* 左右值编码： 存储每个节点左右值，适合`增删改`
+* 闭包表：空间换时间的方式，适合`查询`，此工具选择此方案
 
-此工具选择`闭包表`方式实施
-
-## 2. 如何在项目中使用此工具
-spring boot 项目中添加引入 xxx.jar
+## 2. 安装
+Gradle:
+```groovy
+dependencies {
+    compile "io.github.maodua:wrench-tree-spring-boot-starter:最新版本号"
+}
+```
+Maven:
+```xml
+<dependency>
+    <groupId>io.github.maodua</groupId>
+    <artifactId>wrench-tree-spring-boot-starter</artifactId>
+    <version>最新版本号</version>
+</dependency>
+```
 
 ## 3. 如何在代码中使用此工具
 ```java

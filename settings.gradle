@@ -6,5 +6,5 @@ include 'wrench-file-spring-boot-starter'
 include 'wrench-pager-spring-boot-starter'
 include 'wrench-tree-spring-boot-starter'
 include 'wrench-sql-spring-boot-starter'
-
+include 'wrench-sysconfig-spring-boot-starter'
 
