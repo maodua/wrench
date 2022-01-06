@@ -1,19 +1,20 @@
 # 🔧 拧螺丝的好扳手
 
-| 模块名称 | 描述 |
-| ------  | ---- |
-| wrench-common-spring-boot-starter | 通用包 |
-| wrench-file-spring-boot-starter | 文件处理 |
-| wrench-pager-spring-boot-starter | [分页处理](/wrench-pager-spring-boot-starter/README.md) |
-| wrench-spring-boot-starter | 所有模块 |
-| wrench-sql-spring-boot-starter | 标准SQL |
-| wrench-tree-spring-boot-starter | [树结构](/wrench-tree-spring-boot-starter/README.md) |
+| 模块名称                               | 描述                                                      |
+|--------------------------------------|---------------------------------------------------------|
+| wrench-spring-boot-starter           | 所有模块                                                    |
+| wrench-common-spring-boot-starter    | [通用包](/wrench-common-spring-boot-starter/README.md)     |
+| wrench-file-spring-boot-starter      | 文件处理                                                    |
+| wrench-pager-spring-boot-starter     | [分页处理](/wrench-pager-spring-boot-starter/README.md)     |
+| wrench-sql-spring-boot-starter       | 标准SQL                                                   |
+| wrench-sysconfig-spring-boot-starter | [系统配置](/wrench-sysconfig-spring-boot-starter/README.md) |
+| wrench-tree-spring-boot-starter      | [树结构](/wrench-tree-spring-boot-starter/README.md)       |
 
 ## 分支
-| 分支 | JDK兼容性 | 最新版本号 |
-| ------  | ---- | --- |
-| main  | Latest JDK | 1.0.1 |
-| jdk8 | JDK 8+ | 1.0.1.JDK8 |
+| 分支 | JDK兼容性  | 最新版本号      |
+| ------  |---------|------------|
+| main  | JDK 17+ | 1.1.0      |
+| jdk8 | JDK 8+  | 1.1.0.JDK8 |
 
 ## 安装
 
