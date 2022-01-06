@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class MybatisPageHandler extends Page<Object> implements IPageDataHandler {
+public class CustomizePageDataHandler extends Page<Object> implements IPageDataHandler {
     @Override
     public void setWrenchPage(long page) {
         this.setCurrent(page);
