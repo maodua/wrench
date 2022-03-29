@@ -92,7 +92,8 @@ public class PagerPlugin {
         handler.setWrenchTotalRow(page.getTotal());
         handler.setWrenchTotalPage(page.getPages());
 
-        if (queryData instanceof Collection data){
+        if (queryData instanceof Collection){
+            Collection data = (Collection) queryData;
             // 查询结果是集合添加分页属性
             handler.setWrenchData(data);
 

@@ -43,7 +43,7 @@ public class BaseCloudFileStoreApi {
             fileType = split[split.length - 1];
         }
         // 保存文件
-        var fileStore = new FileStore()
+        FileStore fileStore = new FileStore()
             .setOid(null)
             .setFilename(file.getFilename())
             .setFilepath(url)
@@ -60,9 +60,9 @@ public class BaseCloudFileStoreApi {
     @GetMapping("info/{id}")
     public Result<CloudFile> info(@PathVariable String id) {
         // 数据库获取
-        var fileStore = fileStoreService.getById(id);
+        FileStore fileStore = fileStoreService.getById(id);
         Assert.notNull(fileStore, "没有找到文件");
-        var file = new CloudFile();
+        CloudFile file = new CloudFile();
         file.setFilename(fileStore.getFilename());
         file.setExtend(fileStore.getExtend());
         file.setFileType(fileStore.getFiletype());

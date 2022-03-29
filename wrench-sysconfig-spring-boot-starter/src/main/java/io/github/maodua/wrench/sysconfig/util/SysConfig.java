@@ -91,9 +91,9 @@ public class SysConfig {
         Map<String, Object> typeConf = SysConfig.conf.get(type);
         if (Objects.nonNull(typeConf)) {
             @SuppressWarnings("unchecked")
-            var result = (T) typeConf.get(key);
+            Object result = (T) typeConf.get(key);
             if (Objects.nonNull(result)) {
-                return result;
+                return (T) result;
             }
         }
 
