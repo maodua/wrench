@@ -7,6 +7,6 @@ import org.springframework.util.StringUtils;
  */
 public class Strings {
     public static boolean isBlank(String s){
-        return StringUtils.hasText(s);
+        return !StringUtils.hasText(s);
     }
 }
