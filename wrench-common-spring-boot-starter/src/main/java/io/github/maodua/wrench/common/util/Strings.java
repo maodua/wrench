@@ -1,10 +1,12 @@
 package io.github.maodua.wrench.common.util;
 
+import org.springframework.util.StringUtils;
+
 /**
  * String 工具类
  */
 public class Strings {
     public static boolean isBlank(String s){
-        return s == null || s.isBlank();
+        return StringUtils.hasText(s);
     }
 }

@@ -44,17 +44,17 @@ public class FileStoreServiceImpl extends ServiceImpl<IFileStoreMapper, FileStor
         // 相对路径
         Path relativePath = Paths.get(path1, path2, randomFileName);
         // 文件夹绝对路径
-        var absolutePathFolder = Paths.get(fileConfigure.getRootPath(), path1, path2).toFile();
+        File absolutePathFolder = Paths.get(fileConfigure.getRootPath(), path1, path2).toFile();
         if (!absolutePathFolder.exists()){
             if (!absolutePathFolder.mkdirs())
                 throw new IllegalStateException(String.format("上传目录 %s 创建失败", absolutePathFolder.getAbsolutePath()));
         }
         // 绝对路径
-        var absolutePath = Paths.get(absolutePathFolder.getAbsolutePath(), randomFileName).toFile();
+        File absolutePath = Paths.get(absolutePathFolder.getAbsolutePath(), randomFileName).toFile();
 
         multipartFile.transferTo(absolutePath);
 
-        var fileStore = new FileStore()
+        FileStore fileStore = new FileStore()
             .setOid(oid)
             .setLocal(true)
             .setFilename(fileName)
@@ -69,7 +69,7 @@ public class FileStoreServiceImpl extends ServiceImpl<IFileStoreMapper, FileStor
     @Override
     public void deleteFile(@NonNull String id) {
         // 获取文件
-        var fileStore = this.getById(id);
+        FileStore fileStore = this.getById(id);
 
         // 如果文件存则删除文件
         if (fileStore != null) {

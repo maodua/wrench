@@ -36,7 +36,8 @@ public class InternExceptionHandler {
         Result<?> r = Result.fail("服务器内部错误", ResultCode.INTERNAL_SERVER_ERROR.getCode());
 
         // 调试模式下可以输出具体的错误信息
-        if (e instanceof MethodArgumentNotValidException exception) {
+        if (e instanceof MethodArgumentNotValidException) {
+            MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
             // 参数检查错误
             r.setMessage(exception.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
         }else if (e instanceof NoHandlerFoundException){
@@ -50,7 +51,8 @@ public class InternExceptionHandler {
             r.setMessage("非法参数异常");
         }else if (e instanceof InvalidFormatException){
             r.setMessage("无效格式异常");
-        }else if (e instanceof MessageException exception) {
+        }else if (e instanceof MessageException) {
+            MessageException exception = (MessageException) e;
             // 自定义的错误信息
             String message = exception.getMessage();
             r.setMessage(message);

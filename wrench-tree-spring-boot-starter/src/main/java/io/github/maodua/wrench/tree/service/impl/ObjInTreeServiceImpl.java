@@ -1,5 +1,7 @@
 package io.github.maodua.wrench.tree.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.maodua.wrench.tree.entity.Constant;
@@ -32,12 +34,13 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
     public boolean save(@NonNull String child, String parent, @NonNull Enum<?> type) {
         // 父级为空默认添加此节点为根节点
         if (Strings.isBlank(parent)){
-            var typeCount = this.lambdaQuery().eq(ObjInTree::getType, type).count();
+            Integer typeCount = this.lambdaQuery().eq(ObjInTree::getType, type).count();
             if (typeCount > 0){
                 throw new TreeException(MessageFormat.format("已有 {0} 类型节点,不能当做根节点", type));
             }
 
-            var objInTree = new ObjInTree()
+            ObjInTree objInTree = new ObjInTree()
+                .setId(IdWorker.getIdStr())
                 .setAncestorId(child)
                 .setObjId(child)
                 .setLvl(0)
@@ -48,18 +51,18 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
         }
 
         // 检查子集是否存在
-        var childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
+        Integer childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
         if (childCount > 0){
             throw new TreeException("子级已经存在,不能保存");
         }
         // 检查父级是否存在
-        var parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
+        Integer parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
         if (parentCount <= 0){
             throw new TreeException("父级不存在,不能保存");
         }
 
         // 检查当前关系是否存在
-        var count = this.lambdaQuery()
+        Integer count = this.lambdaQuery()
                 .eq(ObjInTree::getAncestorId, parent)
                 .eq(ObjInTree::getObjId, child)
                 .eq(ObjInTree::getType, type)
@@ -69,10 +72,11 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
         }
 
         // 祖先添加关系
-        var ancestor = this.lambdaQuery().eq(ObjInTree::getObjId,parent).eq(ObjInTree::getType, type).list();
-        var addList = new ArrayList<ObjInTree>();
+        List<ObjInTree> ancestor = this.lambdaQuery().eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).list();
+        List<ObjInTree> addList = new ArrayList<>();
         ancestor.forEach(a -> {
-            var ojbInTree = new ObjInTree()
+            ObjInTree ojbInTree = new ObjInTree()
+                    .setId(IdWorker.getIdStr())
                     .setAncestorId(a.getAncestorId())
                     .setObjId(child)
                     .setLvl(a.getLvl() + 1)
@@ -84,7 +88,8 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
         this.saveBatch(addList);
 
         // 添加本级关系
-        var now = new ObjInTree()
+        ObjInTree now = new ObjInTree()
+                .setId(IdWorker.getIdStr())
                 .setAncestorId(child)
                 .setObjId(child)
                 .setLvl(0)
@@ -102,18 +107,18 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
     // 1. 数据校验
 
         // 检查子集是否存在
-        var childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
+        Integer childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
         if (childCount <= 0){
             throw new TreeException("子级不存在,移动失败。");
         }
         // 检查是否有父级
-        var parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
+        Integer parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
         if (parentCount <= 0){
             throw new TreeException("父级不存在,移动失败。");
         }
 
         // 检查当前关系是否存在
-        var count = this.lambdaQuery()
+        Integer count = this.lambdaQuery()
                 .eq(ObjInTree::getAncestorId, parent)
                 .eq(ObjInTree::getObjId, child)
                 .eq(ObjInTree::getType, type)
@@ -124,7 +129,7 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
         }
 
         // 父级是否是自己的子级
-        var isChildren = this.isChildren(parent, child, type);
+        boolean isChildren = this.isChildren(parent, child, type);
         if (isChildren){
             throw new TreeException("父级不可以移动到子级，移动失败");
         }
@@ -138,23 +143,23 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
                 .update();
 
        // 当前节点的所有下限关系(包括自己)
-        var childRelation = this.lambdaQuery().eq(ObjInTree::getAncestorId, child).eq(ObjInTree::getType, type).list();
+        List<ObjInTree> childRelation = this.lambdaQuery().eq(ObjInTree::getAncestorId, child).eq(ObjInTree::getType, type).list();
     // 2. 删除已有上限关系
 
         // 旧的上级关系(不包括自己)
-        var oldAncestorRelation = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).gt(ObjInTree::getLvl,0).list();
+        List<ObjInTree> oldAncestorRelation = this.lambdaQuery().eq(ObjInTree::getObjId, child).eq(ObjInTree::getType, type).gt(ObjInTree::getLvl, 0).list();
         if (oldAncestorRelation.size() > 0){
 
             // 旧的上级id
-            var oldAncestorId = oldAncestorRelation.stream().map(ObjInTree::getAncestorId).collect(Collectors.toList());
+            List<String> oldAncestorId = oldAncestorRelation.stream().map(ObjInTree::getAncestorId).collect(Collectors.toList());
 
             // 当前节点的所有关系子级
-            var relationChild = childRelation.stream().map(ObjInTree::getObjId).collect(Collectors.toList());
+            List<String> relationChild = childRelation.stream().map(ObjInTree::getObjId).collect(Collectors.toList());
 
             // 删除所有  祖先ID = 旧祖先 && 实体ID = 当前节点下节点(包括自己)
-            var removeWrapper = Wrappers.<ObjInTree>lambdaQuery()
-                    .in(ObjInTree::getAncestorId, oldAncestorId)
-                    .in(ObjInTree::getObjId, relationChild);
+            LambdaQueryWrapper<ObjInTree> removeWrapper = Wrappers.<ObjInTree>lambdaQuery()
+                .in(ObjInTree::getAncestorId, oldAncestorId)
+                .in(ObjInTree::getObjId, relationChild);
             this.remove(removeWrapper);
         }
 
@@ -162,18 +167,19 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
     // 3.重新添加上限关系
 
         // 父级的祖先关系
-        var ancestor = this.lambdaQuery().eq(ObjInTree::getObjId,parent).list();
-        var addList = new ArrayList<ObjInTree>();
+        List<ObjInTree> ancestor = this.lambdaQuery().eq(ObjInTree::getObjId, parent).list();
+        List<ObjInTree> addList = new ArrayList<>();
         ancestor.forEach(a ->
             childRelation.forEach(c -> {
 
-                var ojbInTree = new ObjInTree()
-                        .setAncestorId(a.getAncestorId())
-                        .setObjId(c.getObjId())
-                        .setLvl(a.getLvl() + c.getLvl() + 1)
-                        .setParentId(c.getParentId())
-                        .setType(a.getType())
-                        .setAddTime(LocalDateTime.now());
+                ObjInTree ojbInTree = new ObjInTree()
+                    .setId(IdWorker.getIdStr())
+                    .setAncestorId(a.getAncestorId())
+                    .setObjId(c.getObjId())
+                    .setLvl(a.getLvl() + c.getLvl() + 1)
+                    .setParentId(c.getParentId())
+                    .setType(a.getType())
+                    .setAddTime(LocalDateTime.now());
                 addList.add(ojbInTree);
 
             })
@@ -268,7 +274,7 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
 
     @Override
     public boolean isChildren(@NonNull String child, @NonNull String parent, @NonNull Enum<?> type) {
-        var count = this.lambdaQuery()
+        Integer count = this.lambdaQuery()
                 .eq(ObjInTree::getObjId,child)
                 .eq(ObjInTree::getAncestorId,parent)
                 .eq(ObjInTree::getType,type)
@@ -281,15 +287,15 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
     public void removeByOid(@NonNull String oid, @NonNull Enum<?> type) {
 
         // 获取所有的下级(包括本身)
-        var childrenIds = this.childrenSelf(oid, type);
+        List<String> childrenIds = this.childrenSelf(oid, type);
 
         if (childrenIds.size() > 0){
             // 删除祖先 和 本身(及其下级)的关系
-            var parentWrapper = Wrappers.<ObjInTree>lambdaQuery().in(ObjInTree::getObjId, childrenIds).gt(ObjInTree::getLvl, 0);
+            LambdaQueryWrapper<ObjInTree> parentWrapper = Wrappers.<ObjInTree>lambdaQuery().in(ObjInTree::getObjId, childrenIds).gt(ObjInTree::getLvl, 0);
             this.remove(parentWrapper);
 
             // 删除本身的树
-            var currentWrapper = Wrappers.<ObjInTree>lambdaQuery().in(ObjInTree::getAncestorId, childrenIds);
+            LambdaQueryWrapper<ObjInTree> currentWrapper = Wrappers.<ObjInTree>lambdaQuery().in(ObjInTree::getAncestorId, childrenIds);
             this.remove(currentWrapper);
 
         }

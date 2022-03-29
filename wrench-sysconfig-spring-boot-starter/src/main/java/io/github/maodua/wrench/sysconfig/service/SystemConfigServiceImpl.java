@@ -28,7 +28,7 @@ import java.util.Optional;
 public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, SystemConfig> implements ISystemConfigService {
     @Override
     public Optional<SystemConfig> getByKey(@NonNull String key) {
-        var sysConfig = this.lambdaQuery()
+        SystemConfig sysConfig = this.lambdaQuery()
                 .eq(SystemConfig::getKey, key)
                 .one();
         return Optional.ofNullable(sysConfig);
@@ -37,14 +37,14 @@ public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, Sys
     @Override
     public Result<?> updateValue(@NonNull String key, @NonNull String val, String operator) {
         // 查出配置项
-        var optSystemConfig = this.getByKey(key);
-        if (optSystemConfig.isEmpty()) {
+        Optional<SystemConfig> optSystemConfig = this.getByKey(key);
+        if (!optSystemConfig.isPresent()) {
             return Result.fail("配置项不存在");
         }
-        var systemConfig = optSystemConfig.get();
+        SystemConfig systemConfig = optSystemConfig.get();
 
         // 参数有效性检查
-        var checkValueResult = this.checkValue(systemConfig.getType(), val);
+        Result<?> checkValueResult = this.checkValue(systemConfig.getType(), val);
         if (!checkValueResult.isSuccess()) {
             return checkValueResult;
         }

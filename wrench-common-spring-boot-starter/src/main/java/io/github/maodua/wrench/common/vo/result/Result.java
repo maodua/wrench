@@ -30,7 +30,7 @@ public class Result<T> {
     private T data;
 
     public static <T> Result<T> success(T data, int code) {
-        var result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setSuccess(true)
                 .setCode(code)
                 .setMessage("")
@@ -47,7 +47,7 @@ public class Result<T> {
     }
 
     public static <T> Result<T> fail(String message, int code) {
-        var result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setSuccess(false)
                 .setCode(code)
                 .setMessage(message)

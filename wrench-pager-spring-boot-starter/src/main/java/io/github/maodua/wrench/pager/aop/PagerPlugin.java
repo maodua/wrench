@@ -35,8 +35,8 @@ public class PagerPlugin {
         this.setPager(pager);
 
         // 2. 执行原有方法
-        var localPage = PageHelper.getLocalPage();
-        var returnObject =  point.proceed();
+        Page<Object> localPage = PageHelper.getLocalPage();
+        Object returnObject = point.proceed();
         // 防止没有清理当前线程page
         PageHelper.clearPage();
 
@@ -45,17 +45,16 @@ public class PagerPlugin {
         // 空值不处理
         if (returnObject == null) return null;
 
-        // 获取返回值处理器
-        var resultHandler = Springs.getBeansList(IResultHandler.class).stream().findFirst().orElseThrow(() -> new  PagerException("没有找到返回值处理器。"));
+        IResultHandler resultHandler = Springs.getBeansList(IResultHandler.class).stream().findFirst().orElseThrow(() -> new PagerException("没有找到返回值处理器。"));
         // 获取查询结果
-        var queryData = resultHandler.getData(returnObject);
+        Object queryData = resultHandler.getData(returnObject);
 
         // 查询结果为空，返回空list
         if (queryData == null) resultHandler.setData(returnObject, Collections.emptyList());
 
         // 获取分页数据处理器
-        var pageDataHandler = Springs.getBeansList(IPageDataHandler.class).stream().findFirst().orElseThrow(() -> new PagerException("没有找到返回结果处理器"));
-        var pageDate = pageDateObject(pageDataHandler, localPage, queryData);
+        IPageDataHandler pageDataHandler = Springs.getBeansList(IPageDataHandler.class).stream().findFirst().orElseThrow(() -> new PagerException("没有找到返回结果处理器"));
+        Object pageDate = pageDateObject(pageDataHandler, localPage, queryData);
         resultHandler.setData(returnObject, pageDate);
 
         return returnObject;
@@ -67,8 +66,8 @@ public class PagerPlugin {
      */
     void setPager(Pager pager){
         // 获取Request请求中的参数
-        var pageStr = Servlets.getRequest().getParameter(pagerConfigure.getPage());
-        var pageSizeStr = Servlets.getRequest().getParameter(pagerConfigure.getPageSize());
+        String pageStr = Servlets.getRequest().getParameter(pagerConfigure.getPage());
+        String pageSizeStr = Servlets.getRequest().getParameter(pagerConfigure.getPageSize());
 
         // 页数 和 页大小
         int page = Optional.ofNullable(pageStr).map(Integer::valueOf).orElse(pager.page());
@@ -93,13 +92,14 @@ public class PagerPlugin {
         handler.setWrenchTotalRow(page.getTotal());
         handler.setWrenchTotalPage(page.getPages());
 
-        if (queryData instanceof Collection data){
+        if (queryData instanceof Collection){
+            Collection data = (Collection) queryData;
             // 查询结果是集合添加分页属性
             handler.setWrenchData(data);
 
         }else {
             // 查询结果不是集合自动装成集合
-            handler.setWrenchData(List.of(queryData));
+            handler.setWrenchData(Arrays.asList(queryData));
         }
         return handler;
     }
