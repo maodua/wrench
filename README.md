@@ -10,12 +10,6 @@
 | wrench-sysconfig-spring-boot-starter | [系统配置](/wrench-sysconfig-spring-boot-starter/README.md) |
 | wrench-tree-spring-boot-starter      | [树结构](/wrench-tree-spring-boot-starter/README.md)       |
 
-## 分支
-| 分支 | JDK兼容性  | 最新版本号      |
-| ------  |---------|------------|
-| main  | JDK 17+ | 1.1.0      |
-| jdk8 | JDK 8+  | 1.1.0.JDK8 |
-
 ## 安装
 
 Gradle:
