@@ -1,7 +1,7 @@
 plugins {
 	id 'java-library'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.springframework.boot' version '2.5.6'
+    id 'org.springframework.boot' version '2.6.3'
     id 'maven-publish'
     id 'signing'
 }
@@ -29,7 +29,7 @@ ext {
 // 所有项目配置
 allprojects {
 	group = 'io.github.maodua'
-	version = '1.1.0'
+	version = '1.1.1'
 
 	java {
 		sourceCompatibility = JavaVersion.VERSION_17

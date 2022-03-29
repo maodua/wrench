@@ -7,9 +7,12 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
+/**
+ * 文件存储
+ */
 @Data
 @Accessors(chain = true)
-public class FilePool {
+public class FileStore {
     @TableId(type = IdType.ASSIGN_ID)
     private String id;
     /**
@@ -25,11 +28,11 @@ public class FilePool {
      */
     private String filename;
     /**
-     * 文件类型(图片、音频、视频、文件)
+     * 文件类型
      */
-    private FileType filetype;
+    private String filetype;
     /**
-     * 文件的实际保存路径,或者文件访问url
+     * 文件的实际保存路径或者文件访问url
      */
     private String filepath;
     /**
