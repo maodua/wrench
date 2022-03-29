@@ -5,6 +5,6 @@ package io.github.maodua.wrench.common.util;
  */
 public class Strings {
     public static boolean isBlank(String s){
-        return s != null && s.isBlank();
+        return s == null || s.isBlank();
     }
 }

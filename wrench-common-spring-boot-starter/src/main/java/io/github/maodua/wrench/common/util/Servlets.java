@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 在非Spring注入的Bean中使用获取 Request
+ * Servlet 会话
  */
 public class Servlets {
 
