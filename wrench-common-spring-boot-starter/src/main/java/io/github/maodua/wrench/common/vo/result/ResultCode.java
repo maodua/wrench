@@ -29,7 +29,15 @@ public enum ResultCode {
     /**
      * 无权访问
      */
-    ACCESS_DENIED(-5);
+    ACCESS_DENIED(-5),
+    /**
+     * 网站升级
+     */
+    UPGRADE(-6),
+    /**
+     * 限流
+     */
+    LIMITING(-7);
 
     /**
      * 状态码
