@@ -28,9 +28,9 @@ public class BaseCloudFileStoreApi {
     public Result<String> upload(@Valid @RequestBody CloudFile file){
         // 访问路径
         String url = file.getUrlpath();
-        if (fileStoreConfigure.getUilReplace() && url.startsWith(fileStoreConfigure.getUilPrefix())){
+        if (fileStoreConfigure.getUrlReplace() && url.startsWith(fileStoreConfigure.getUrlPrefix())){
             // 替换指定前缀
-            url = url.replaceFirst(url, fileStoreConfigure.getUilPrefix());
+            url = url.replaceFirst(url, fileStoreConfigure.getUrlPrefix());
         }
         // 文件类型默认
         String fileType = "octet-stream";
@@ -67,8 +67,8 @@ public class BaseCloudFileStoreApi {
         file.setExtend(fileStore.getExtend());
         file.setFileType(fileStore.getFiletype());
         file.setUrlpath(fileStore.getFilepath());
-        if (fileStoreConfigure.getUilReplace()){
-            file.setUrlpath(fileStoreConfigure.getUilPrefix() + fileStore.getFilepath());
+        if (fileStoreConfigure.getUrlReplace()){
+            file.setUrlpath(fileStoreConfigure.getUrlPrefix() + fileStore.getFilepath());
         }
         return Result.success(file);
     }

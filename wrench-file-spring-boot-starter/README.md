@@ -22,11 +22,11 @@ application.yaml
 wrench:
   file:
     # 上传文件的根目录,默认当前目录
-    rootPath: /data/file-store
+    root-path: /data/file-store
     # 是否替换URL前缀,默认false
-    uilReplace: false
+    url-replace: false
     # 第三方网站的指定前缀,默认空字符串
-    uilPrefix: http://localhost:8080/
+    url-prefix: http://localhost:8080/
 ```
 
 ## 上传

@@ -18,9 +18,9 @@ public class FileStoreConfigure {
     /**
      * 是否替换URL前缀
      */
-    private Boolean uilReplace = false;
+    private Boolean urlReplace = false;
     /**
      * 第三方网站的指定前缀
      */
-    private String uilPrefix = "";
+    private String urlPrefix = "";
 }
