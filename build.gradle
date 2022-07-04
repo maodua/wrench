@@ -14,8 +14,8 @@ ext {
     ]
 
 	lib = [
-			"mybatis-plus"				            : 	"com.baomidou:mybatis-plus-boot-starter:3.4.2",
-            "pagehelper"                            :   "com.github.pagehelper:pagehelper-spring-boot-starter:1.4.0",
+			"mybatis-plus"				            : 	"com.baomidou:mybatis-plus-boot-starter:3.5.1",
+            "pagehelper"                            :   "com.github.pagehelper:pagehelper-spring-boot-starter:1.4.1",
 			"lombok"              					:	"org.projectlombok:lombok:1.18.22",
             "mysql-connector-java"                  :   "mysql:mysql-connector-java",
             // JUnit 5 Jupiter API

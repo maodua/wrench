@@ -2,6 +2,7 @@ package io.github.maodua.wrench.pager.handler;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +27,6 @@ public class CustomizePageDataHandler extends Page<Object> implements IPageDataH
 
     @Override
     public void setWrenchData(Collection<Object> records) {
-        this.setRecords(List.copyOf(records));
+        this.setRecords(new ArrayList<>(records));
     }
 }

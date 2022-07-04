@@ -34,7 +34,7 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
     public boolean save(@NonNull String child, String parent, @NonNull Enum<?> type) {
         // 父级为空默认添加此节点为根节点
         if (Strings.isBlank(parent)){
-            Integer typeCount = this.lambdaQuery().eq(ObjInTree::getType, type).count();
+            Long typeCount = this.lambdaQuery().eq(ObjInTree::getType, type).count();
             if (typeCount > 0){
                 throw new TreeException(MessageFormat.format("已有 {0} 类型节点,不能当做根节点", type));
             }
@@ -51,18 +51,18 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
         }
 
         // 检查子集是否存在
-        Integer childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
+        Long childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
         if (childCount > 0){
             throw new TreeException("子级已经存在,不能保存");
         }
         // 检查父级是否存在
-        Integer parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
+        Long parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
         if (parentCount <= 0){
             throw new TreeException("父级不存在,不能保存");
         }
 
         // 检查当前关系是否存在
-        Integer count = this.lambdaQuery()
+        Long count = this.lambdaQuery()
                 .eq(ObjInTree::getAncestorId, parent)
                 .eq(ObjInTree::getObjId, child)
                 .eq(ObjInTree::getType, type)
@@ -107,18 +107,18 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
     // 1. 数据校验
 
         // 检查子集是否存在
-        Integer childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
+        Long childCount = this.lambdaQuery().eq(ObjInTree::getObjId,child).eq(ObjInTree::getType,type).count();
         if (childCount <= 0){
             throw new TreeException("子级不存在,移动失败。");
         }
         // 检查是否有父级
-        Integer parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
+        Long parentCount = this.lambdaQuery().eq(ObjInTree::getAncestorId, parent).eq(ObjInTree::getObjId, parent).eq(ObjInTree::getType, type).count();
         if (parentCount <= 0){
             throw new TreeException("父级不存在,移动失败。");
         }
 
         // 检查当前关系是否存在
-        Integer count = this.lambdaQuery()
+        Long count = this.lambdaQuery()
                 .eq(ObjInTree::getAncestorId, parent)
                 .eq(ObjInTree::getObjId, child)
                 .eq(ObjInTree::getType, type)
@@ -227,7 +227,7 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
                 .eq(ObjInTree::getAncestorId, oid)
                 .eq(ObjInTree::getType, type)
                 .ne(ObjInTree::getLvl,0)
-                .count();
+                .count().intValue();
     }
 
     @Override
@@ -236,7 +236,7 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
                 .eq(ObjInTree::getAncestorId, oid)
                 .eq(ObjInTree::getType, type)
                 .eq(ObjInTree::getLvl,layer)
-                .count();
+                .count().intValue();
     }
 
     @Override
@@ -274,7 +274,7 @@ public class ObjInTreeServiceImpl extends ServiceImpl<ObjInTreeMapper, ObjInTree
 
     @Override
     public boolean isChildren(@NonNull String child, @NonNull String parent, @NonNull Enum<?> type) {
-        Integer count = this.lambdaQuery()
+        Long count = this.lambdaQuery()
                 .eq(ObjInTree::getObjId,child)
                 .eq(ObjInTree::getAncestorId,parent)
                 .eq(ObjInTree::getType,type)
