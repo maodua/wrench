@@ -22,6 +22,7 @@ import java.util.*;
  */
 @Component
 @Aspect
+@SuppressWarnings("unchecked")
 public class PagerPlugin {
 
     @Autowired
