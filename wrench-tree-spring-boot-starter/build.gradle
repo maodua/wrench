@@ -2,5 +2,8 @@ dependencies {
     api                 project(":wrench-common-spring-boot-starter")
     api                 project(":wrench-sql-spring-boot-starter")
 
+    compileOnly  "org.springframework.boot:spring-boot-starter-web"
+    compileOnly  "org.springframework.boot:spring-boot-starter-validation"
+
     testRuntimeOnly     "${lib.'mysql-connector-java'}"
 }
