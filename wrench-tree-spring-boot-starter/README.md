@@ -6,6 +6,8 @@
 * 闭包表：空间换时间的方式，适合`查询`，此工具选择此方案
 
 ## 2. 安装
+[最新版本](https://mvnrepository.com/artifact/io.github.maodua/wrench-tree-spring-boot-starter)
+
 Gradle:
 ```groovy
 dependencies {

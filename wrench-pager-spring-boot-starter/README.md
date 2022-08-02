@@ -1,6 +1,8 @@
 # 🔧 分页可以更简单
 
 ## 安装
+[最新版本](https://mvnrepository.com/artifact/io.github.maodua/wrench-pager-spring-boot-starter)
+
 Gradle:
 ```groovy
 dependencies {
