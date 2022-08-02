@@ -11,18 +11,19 @@
 | wrench-tree-spring-boot-starter      | [树结构](/wrench-tree-spring-boot-starter/README.md)     |
 
 ## 安装
+[最新版本](https://mvnrepository.com/artifact/io.github.maodua/wrench-spring-boot-starter)
 
 Gradle:
 ```groovy
 dependencies {
-    compile "io.github.maodua:模块名称:版本号"
+    compile "io.github.maodua:wrench-spring-boot-starter:版本号"
 }
 ```
 Maven:
 ```xml
 <dependency>
     <groupId>io.github.maodua</groupId>
-    <artifactId>模块名称</artifactId>
+    <artifactId>wrench-spring-boot-starter</artifactId>
     <version>版本号</version>
 </dependency>
 ```

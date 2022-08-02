@@ -1,6 +1,8 @@
 # 🔧 常用包
 
 ## 安装
+[最新版本](https://mvnrepository.com/artifact/io.github.maodua/wrench-common-spring-boot-starter)
+
 Gradle:
 ```groovy
 dependencies {

@@ -1,6 +1,8 @@
 # 🔧 文件存储可以更简单
 
 ## 安装
+[最新版本](https://mvnrepository.com/artifact/io.github.maodua/wrench-file-spring-boot-starter)
+
 Gradle:
 ```groovy
 dependencies {
