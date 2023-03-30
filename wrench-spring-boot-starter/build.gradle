@@ -4,6 +4,7 @@ dependencies {
     api     project(':wrench-pager-spring-boot-starter')
     api     project(':wrench-tree-spring-boot-starter')
     api     project(':wrench-sql-spring-boot-starter')
+    api     project(':wrench-auth-spring-boot-starter')
 
     testRuntimeOnly     "${lib.'mysql-connector-java'}"
 }

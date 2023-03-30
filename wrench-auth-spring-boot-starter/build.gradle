@@ -1,0 +1,5 @@
+dependencies {
+    api     project(":wrench-common-spring-boot-starter")
+    api     "org.springframework.boot:spring-boot-starter-aop"
+    implementation 			'com.auth0:java-jwt:3.12.0'
+}
